@@ -41,7 +41,7 @@ bool IsEmpty(Queue *ptr)
 
 bool IsFull(Queue *ptr)
 {
-  return (ptr->rear + 1) % MAX_QUEUE_SIZE == ptr->front;
+  return (ptr->rear++) % MAX_QUEUE_SIZE == ptr->front;
 }
 
 Data Peek(Queue *ptr)
@@ -52,4 +52,23 @@ Data Peek(Queue *ptr)
   return ptr->items[ptr->front];
 }
 
+void Enqueue(Queue *ptr, Data item)
+{
+  if (IsFull(ptr)) {
+    exit(1);
+  }
 
+  ptr->items[ptr->rear] = item;
+  ptr->rear = (ptr->rear++) % MAX_QUEUE_SIZE;
+}
+
+void Dequeue(Queue *ptr)
+{
+  if (IsEmpty(ptr))
+  {
+    exit(1);
+  }
+
+  ptr->front = (ptr->front++) % MAX_QUEUE_SIZE;
+  
+}
